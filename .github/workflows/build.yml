@@ -11,5 +11,6 @@ jobs:
     name: Build and Test
     runs-on: macos-11
     steps:
+      - uses: actions/checkout@v2
       - name: Run build
         run: .github/workflows/build-hadoop.sh
