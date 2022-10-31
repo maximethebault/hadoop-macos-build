@@ -9,6 +9,7 @@ curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_V
  && mv hadoop-rel-release-$HADOOP_VERSION hb \
  && cd hb \
  && sed -i '' -e "24s/^//p; 24s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-common-project/hadoop-common/src/CMakeLists.txt \
+ && sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c \
  && cat hadoop-common-project/hadoop-common/src/CMakeLists.txt \
  && export CXXFLAGS="-std=c++14" \
  && mvn package -Pdist,native -Drequire.isal -Drequire.zstd -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress \
