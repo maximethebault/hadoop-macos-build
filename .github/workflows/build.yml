@@ -31,7 +31,7 @@ jobs:
         uses: ./.tmp/actions/cache
         with:
           path: protobuf
-          key: protobuf-${{ hashFiles('protobuf3') }}
+          key: protobuf-${{ hashFiles('protobuf') }}
       - name: Run build protobuf
         if: steps.protobuf-cache.outputs.cache-hit != 'true'
         run: .github/workflows/build-protobuf.sh

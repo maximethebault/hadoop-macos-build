@@ -3,5 +3,6 @@
 cd protobuf \
  && make install \
  && brew link protobuf \
- && cd ..
+ && cd .. \
+ && exit 1
 
