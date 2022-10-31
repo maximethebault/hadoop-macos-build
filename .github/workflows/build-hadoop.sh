@@ -12,7 +12,7 @@ curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_V
  && sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c \
  && cat hadoop-common-project/hadoop-common/src/CMakeLists.txt \
  && export CXXFLAGS="-std=c++14" \
- && mvn package -Pdist,native -Drequire.zstd -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress \
+ && mvn package -Pdist,native -Drequire.zstd -DskipTests -Dmaven.javadoc.skip=true -Dtar -Disal.prefix=/dev/null -Disal.lib=/dev/null --no-transfer-progress \
  && cd .. \
  && tar xf hb/hadoop-dist/target/hadoop-$HADOOP_VERSION.tar.gz -C . \
  && rm -fr hadoop-$HADOOP_VERSION/lib/native/examples \
