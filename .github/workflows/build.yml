@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+env:
+  PROTOBUF_VERSION: 3.7.1
+  HADOOP_VERSION: 3.3.4
+
 jobs:
   build:
     name: Build and Test
@@ -31,16 +35,16 @@ jobs:
         uses: ./.tmp/actions/cache
         with:
           path: protobuf
-          key: protobuf-${{ hashFiles('protobuf') }}
+          key: protobuf-${{env.PROTOBUF_VERSION}}
       - name: Run build protobuf
         if: steps.protobuf-cache.outputs.cache-hit != 'true'
         run: .github/workflows/build-protobuf.sh
       - name: Run install protobuf
         run: .github/workflows/install-protobuf.sh
-#      - name: Run build hadoop
-#        run: .github/workflows/build-hadoop.sh
-#      - name: Save native libs
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: native
-#          path: /opt/hadoop-$HADOOP_VERSION/lib/native/*
+      - name: Run build hadoop
+        run: .github/workflows/build-hadoop.sh
+      - name: Save native libs
+        uses: actions/upload-artifact@v3
+        with:
+          name: native
+          path: /opt/hadoop-$HADOOP_VERSION/lib/native/*

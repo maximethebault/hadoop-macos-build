@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export HADOOP_VERSION=3.3.4
 export OPENSSL_ROOT_DIR="/usr/local/opt/openssl@1.1"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
