@@ -11,6 +11,7 @@ jobs:
     name: Build and Test
     runs-on: macos-11
     steps:
+      - uses: actions/checkout@v3
       # Tweak the official cache action to allow save on failure
       - name: Checkout actions/cache@v3
         uses: actions/checkout@v3
@@ -23,7 +24,6 @@ jobs:
         # condition, making it default to `post-if: always()`.
         run: |
           sed -i -e '/ post-if: /d' .tmp/actions/cache/action.yml
-      - uses: actions/checkout@v2
       - name: Install deps
         run: .github/workflows/install-deps.sh
       - name: Load protobuf from cache
