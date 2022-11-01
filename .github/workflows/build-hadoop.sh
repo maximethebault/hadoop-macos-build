@@ -4,9 +4,11 @@ set -e
 
 export ZLIB_ROOT=/usr/local/Cellar/zlib/1.2.13
 export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1q"
+export OPENSSL_LIBRARIES="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
+export CFLAGS="-Wno-error=implicit-function-declaration"
 #export CXXFLAGS="-std=c++14"
 
 curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_VERSION.tar.gz | gunzip | tar -x
@@ -20,7 +22,7 @@ sed -i '' -e "23s/^//p; 23s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-hdfs-proj
 sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c
 # output the modified file for debug
 #cat hadoop-common-project/hadoop-common/src/CMakeLists.txt
-mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DOPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1q  -DOPENSSL_LIBRARIES=/usr/local/Cellar/openssl@1.1/1.1.1q/lib -DOPENSSL_INCLUDE_DIR=/usr/local/Cellar/openssl@1.1/1.1.1q/include -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
+mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
 cd ..
 tar xf hb/hadoop-dist/target/hadoop-$HADOOP_VERSION.tar.gz -C .
 rm -fr hadoop-$HADOOP_VERSION/lib/native/examples
