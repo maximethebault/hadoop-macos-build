@@ -9,6 +9,10 @@ export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
 export CFLAGS="-Wno-error=implicit-function-declaration"
+export CC=$(which gcc-10)
+export CXX=$(which g++-10)
+export CPP=$(which cpp-10)
+export LD=$(which gcc-10)
 #export CXXFLAGS="-std=c++14"
 
 curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_VERSION.tar.gz | gunzip | tar -x
