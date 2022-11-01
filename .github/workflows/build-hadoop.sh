@@ -29,6 +29,7 @@ sed -i '' -e "23s/^//p; 23s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-hdfs-proj
 # get rid of glib version check not working on MacOS
 sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c
 sed -i '' -e "169,171d" hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/CMakeLists.txt
+sed -i '' 's/_assert/__assert/' hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/third_party/tr2/optional.hpp
 # output the modified file for debug
 #cat hadoop-common-project/hadoop-common/src/CMakeLists.txt
 mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
