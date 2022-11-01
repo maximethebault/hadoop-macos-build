@@ -2,8 +2,10 @@
 
 set -e
 
+ls -R "/usr/local/Cellar/openssl@1.1/"
+
 export ZLIB_ROOT=/usr/local/Cellar/zlib/1.2.13
-export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1q"
+export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
 export CXXFLAGS="-std=c++14"
