@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: native
-          path: /opt/hadoop-${{env.HADOOP_VERSION}}/lib/native/*
+          path: hadoop-${{env.HADOOP_VERSION}}/lib/native/*

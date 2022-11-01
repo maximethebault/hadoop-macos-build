@@ -6,7 +6,7 @@ set -e
 # BACKPORT ANY BUILD FIX FROM THE FORMER BRANCH
 
 export ZLIB_ROOT=/usr/local/Cellar/zlib/1.2.13
-export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1q"
+export OPENSSL_ROOT_DIR="$(brew --prefix openssl@1.1)"
 export OPENSSL_LIBRARIES="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
@@ -23,7 +23,10 @@ unzip -q hadoop.zip
 rm hadoop.zip
 mv "hadoop-branch-$HADOOP_VERSION" hb
 cd hb
-mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
+mvn package -Pdist,native \
+-Drequire.zstd -Dzstd.prefix="$(brew --prefix zstd)" -Dzstd.lib="$(brew --prefix zstd)/lib" \
+-Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" \
+-DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
 cd ..
 tar xf hb/hadoop-dist/target/hadoop-$HADOOP_VERSION.tar.gz -C .
 rm -fr hadoop-$HADOOP_VERSION/lib/native/examples
