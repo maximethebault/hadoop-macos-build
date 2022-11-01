@@ -15,11 +15,6 @@ export CPP=$(which cpp-10)
 export LD=$(which gcc-10)
 #export CXXFLAGS="-std=c++14"
 
-echo $CC
-echo $CXX
-echo $CPP
-echo $LD
-
 curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_VERSION.tar.gz | gunzip | tar -x
 mv hadoop-rel-release-$HADOOP_VERSION hb
 cd hb
@@ -31,7 +26,7 @@ sed -i '' -e "23s/^//p; 23s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-hdfs-proj
 #sed -i '' -e '39s/^//p; 39s/^.*/SET (CMAKE_C_FLAGS "-Wno-error=implicit-function-declaration ${CMAKE_C_FLAGS}")/' hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/CMakeLists.txt
 # get rid of glib version check not working on MacOS
 sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c
-sed -i '' -e "184d" hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/CMakeLists.txt
+sed -i '' -e "183,185d" hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/CMakeLists.txt
 # output the modified file for debug
 #cat hadoop-common-project/hadoop-common/src/CMakeLists.txt
 mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
