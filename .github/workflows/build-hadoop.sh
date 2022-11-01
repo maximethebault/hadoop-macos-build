@@ -6,7 +6,7 @@ ls -R "/usr/local/Cellar/openssl@1.1/"
 ls -R "/usr/local/opt/openssl/"
 
 export ZLIB_ROOT=/usr/local/Cellar/zlib/1.2.13
-export OPENSSL_ROOT_DIR="/usr/local/opt/openssl"
+export OPENSSL_ROOT_DIR="$(brew --prefix openssl@1.1)"
 export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
