@@ -2,9 +2,6 @@
 
 set -e
 
-ls -R "/usr/local/Cellar/openssl@1.1/"
-ls -R "/usr/local/opt/openssl/"
-
 export ZLIB_ROOT=/usr/local/Cellar/zlib/1.2.13
 export OPENSSL_ROOT_DIR="/usr/local/opt/openssl@1.1"
 export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
@@ -17,11 +14,14 @@ mv hadoop-rel-release-$HADOOP_VERSION hb
 cd hb
 # don't ignore ZLIB_ROOT
 sed -i '' -e "24s/^//p; 24s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-common-project/hadoop-common/src/CMakeLists.txt
+# don't ignore OPENSSL_ROOT
+sed -i '' -e "23s/^//p; 23s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-hdfs-project/hadoop-hdfs-native-client/src/CMakeLists.txt
 # get rid of glib version check not working on MacOS
 sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c
 # output the modified file for debug
 cat hadoop-common-project/hadoop-common/src/CMakeLists.txt
-mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
+#  -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR"
+mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
 cd ..
 tar xf hb/hadoop-dist/target/hadoop-$HADOOP_VERSION.tar.gz -C .
 rm -fr hadoop-$HADOOP_VERSION/lib/native/examples
