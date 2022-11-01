@@ -8,7 +8,7 @@ export OPENSSL_LIBRARIES="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
-export CFLAGS="-Wno-error=implicit-function-declaration"
+#export CFLAGS="-Wno-error=implicit-function-declaration"
 export CC=$(which gcc-10)
 export CXX=$(which g++-10)
 export CPP=$(which cpp-10)
@@ -23,7 +23,7 @@ sed -i '' -e "24s/^//p; 24s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-common-pr
 # don't ignore OPENSSL_ROOT
 sed -i '' -e "23s/^//p; 23s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-hdfs-project/hadoop-hdfs-native-client/src/CMakeLists.txt
 # yarn project doesn't inherit CFLAGS, do it manually
-sed -i '' -e '39s/^//p; 39s/^.*/SET (CMAKE_C_FLAGS "-Wno-error=implicit-function-declaration ${CMAKE_C_FLAGS}")/' hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/CMakeLists.txt
+#sed -i '' -e '39s/^//p; 39s/^.*/SET (CMAKE_C_FLAGS "-Wno-error=implicit-function-declaration ${CMAKE_C_FLAGS}")/' hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/CMakeLists.txt
 # get rid of glib version check not working on MacOS
 sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c
 # output the modified file for debug
