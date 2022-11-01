@@ -13,7 +13,7 @@ export CC=$(which gcc-10)
 export CXX=$(which g++-10)
 export CPP=$(which cpp-10)
 export LD=$(which gcc-10)
-export CXXFLAGS="-std=c++14"
+#export CXXFLAGS="-std=c++14"
 
 echo $CC
 echo $CXX
