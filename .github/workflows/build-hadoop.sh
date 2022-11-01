@@ -7,7 +7,7 @@ export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1q"
 export OPENSSL_LIB_DIR="$OPENSSL_ROOT_DIR/lib"
 export OPENSSL_INCLUDE_DIR="$OPENSSL_ROOT_DIR/include"
 export PKG_CONFIG_PATH="${OPENSSL_ROOT_DIR}/lib/pkgconfig"
-export CXXFLAGS="-std=c++14"
+#export CXXFLAGS="-std=c++14"
 
 curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_VERSION.tar.gz | gunzip | tar -x
 mv hadoop-rel-release-$HADOOP_VERSION hb
