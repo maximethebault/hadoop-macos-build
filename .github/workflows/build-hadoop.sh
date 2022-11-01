@@ -17,7 +17,8 @@ export CPP=$(which cpp-10)
 export LD=$(which gcc-10)
 #export CXXFLAGS="-std=c++14"
 
-curl -L "https://github.com/maximethebault/hadoop/archive/refs/heads/branch-$HADOOP_VERSION.zip" | unzip
+curl -L "https://github.com/maximethebault/hadoop/archive/refs/heads/branch-$HADOOP_VERSION.zip" -0 hadoop.zip
+unzip hadoop.zip
 mv "hadoop-branch-$HADOOP_VERSION" hb
 cd hb
 mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
