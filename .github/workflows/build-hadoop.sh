@@ -17,7 +17,7 @@ export CPP=$(which cpp-10)
 export LD=$(which gcc-10)
 #export CXXFLAGS="-std=c++14"
 
-curl -L "https://github.com/maximethebault/hadoop/archive/refs/heads/branch-$HADOOP_VERSION.zip" -0 hadoop.zip
+curl -L "https://github.com/maximethebault/hadoop/archive/refs/heads/branch-$HADOOP_VERSION.zip" -o hadoop.zip
 unzip hadoop.zip
 mv "hadoop-branch-$HADOOP_VERSION" hb
 cd hb
