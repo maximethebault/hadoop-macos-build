@@ -2,6 +2,8 @@
 
 set -e
 
+# AT EACH NEW HADOOP RELEASE, UPDATE THE HARDCODED LINE NUMBERS WHEN EDITING SOURCE FILES
+
 export ZLIB_ROOT=/usr/local/Cellar/zlib/1.2.13
 export OPENSSL_ROOT_DIR="/usr/local/Cellar/openssl@1.1/1.1.1q"
 export OPENSSL_LIBRARIES="$OPENSSL_ROOT_DIR/lib"
