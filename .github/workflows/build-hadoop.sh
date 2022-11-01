@@ -25,6 +25,7 @@ mv "hadoop-branch-$HADOOP_VERSION" hb
 cd hb
 mvn package -Pdist,native \
 -Drequire.zstd -Dzstd.prefix="$(brew --prefix zstd)" -Dzstd.lib="$(brew --prefix zstd)/lib" \
+-Drequire.snappy -Dsnappy.prefix="$(brew --prefix snappy)" -Dsnappy.lib="$(brew --prefix snappy)/lib" \
 -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" \
 -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
 cd ..
