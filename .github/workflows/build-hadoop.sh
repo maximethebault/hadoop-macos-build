@@ -17,21 +17,9 @@ export CPP=$(which cpp-10)
 export LD=$(which gcc-10)
 #export CXXFLAGS="-std=c++14"
 
-curl -L https://github.com/apache/hadoop/archive/refs/tags/rel/release-$HADOOP_VERSION.tar.gz | gunzip | tar -x
-mv hadoop-rel-release-$HADOOP_VERSION hb
+curl -L "https://github.com/maximethebault/hadoop/archive/refs/heads/branch-$HADOOP_VERSION.zip" | unzip
+mv "hadoop-branch-$HADOOP_VERSION" hb
 cd hb
-# don't ignore ZLIB_ROOT
-sed -i '' -e "24s/^//p; 24s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-common-project/hadoop-common/src/CMakeLists.txt
-# don't ignore OPENSSL_ROOT
-sed -i '' -e "23s/^//p; 23s/^.*/cmake_policy(SET CMP0074 NEW)/" hadoop-hdfs-project/hadoop-hdfs-native-client/src/CMakeLists.txt
-# yarn project doesn't inherit CFLAGS, do it manually
-#sed -i '' -e '39s/^//p; 39s/^.*/SET (CMAKE_C_FLAGS "-Wno-error=implicit-function-declaration ${CMAKE_C_FLAGS}")/' hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/CMakeLists.txt
-# get rid of glib version check not working on MacOS
-sed -i '' 's/ || defined(__GLIBC_PREREQ) && __GLIBC_PREREQ(2, 32)//' hadoop-common-project/hadoop-common/src/main/native/src/exception.c
-sed -i '' -e "169,171d" hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/CMakeLists.txt
-sed -i '' 's/ _assert/ __assert/' hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/third_party/tr2/optional.hpp
-# output the modified file for debug
-#cat hadoop-common-project/hadoop-common/src/CMakeLists.txt
 mvn package -Pdist,native -Drequire.zstd -Drequire.openssl -Dopenssl.prefix="$OPENSSL_ROOT_DIR" -Dopenssl.lib="$OPENSSL_LIB_DIR" -Dopenssl.include="$OPENSSL_INCLUDE_DIR" -DskipTests -Dmaven.javadoc.skip=true -Dtar --no-transfer-progress
 cd ..
 tar xf hb/hadoop-dist/target/hadoop-$HADOOP_VERSION.tar.gz -C .
